@@ -12,7 +12,11 @@ from pyspark.sql.window import Window
 # 1. CONFIGURATION
 # ============================================================
 
-CATALOG = "hop"
+import sys
+if "--CATALOG" in sys.argv:                                     # job (spark_python_task): parameters -> sys.argv
+    CATALOG = sys.argv[sys.argv.index("--CATALOG") + 1]
+else:                                                            # interactive/hardcoded default
+    CATALOG = "hop"
 
 BRONZE_TABLE = f"{CATALOG}.bronze.restaurants_cdc"
 

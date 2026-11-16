@@ -23,7 +23,7 @@ targets:
     workspace:
       host: https://dbc-f2cb5895-5aa1.cloud.databricks.com
     variables:
-      catalog: food_dev
+      catalog: hop_dev
   prod:
     mode: production
     workspace:
@@ -31,7 +31,7 @@ targets:
       # We explicitly deploy to /Workspace/Users/bhaveshyadav@cyntexa.com to make sure we only have a single copy.
       root_path: /Workspace/Users/bhaveshyadav@cyntexa.com/.bundle/${bundle.name}/${bundle.target}
     variables:
-      catalog: food_dev
+      catalog: hop_prod
     permissions:
       - user_name: bhaveshyadav@cyntexa.com
         level: CAN_MANAGE

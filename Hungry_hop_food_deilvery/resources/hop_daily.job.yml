@@ -1,0 +1,83 @@
+# hop_daily — HungryHop daily data pipeline: bronze ingestion -> silver clean -> gold enrich
+# Catalog target ke hisab se parameterized: dev -> hop_dev, prod -> hop_prod
+resources:
+  jobs:
+    hop_daily:
+      name: hop_daily
+      description: 'Daily HungryHop refresh - ingest raw events, clean to silver, enrich to gold.'
+      environments:
+        - environment_key: default
+          spec:
+            environment_version: '2'                 # serverless compute for jobs
+      tasks:
+        # ---- 0. Setup: catalog + schemas + volume (idempotent, one-time bootstrap) ----
+        - task_key: setup
+          environment_key: default
+          notebook_task:
+            notebook_path: ../src/Bronze/Setup.ipynb
+            base_parameters:
+              catalog: ${var.catalog}
+
+        # ---- 1. Bronze: raw data ingestion (Auto Loader) ----
+        - task_key: ingestion
+          environment_key: default
+          notebook_task:
+            notebook_path: ../src/Bronze/Ingestion.ipynb
+            base_parameters:
+              catalog: ${var.catalog}
+          depends_on:
+            - task_key: setup
+
+        # ---- 2. Silver: reference tables (ingestion ke baad, parallel) ----
+        - task_key: customers_clean
+          environment_key: default
+          spark_python_task:
+            python_file: ../src/Silver/customers_clean.py
+            parameters: ['--CATALOG', '${var.catalog}']
+          depends_on:
+            - task_key: ingestion
+
+        - task_key: riders_clean
+          environment_key: default
+          spark_python_task:
+            python_file: ../src/Silver/riders_clean.py
+            parameters: ['--CATALOG', '${var.catalog}']
+          depends_on:
+            - task_key: ingestion
+
+        - task_key: zone_clean
+          environment_key: default
+          spark_python_task:
+            python_file: ../src/Silver/zone_clean.py
+            parameters: ['--CATALOG', '${var.catalog}']
+          depends_on:
+            - task_key: ingestion
+
+        - task_key: restaurants_clean
+          environment_key: default
+          spark_python_task:
+            python_file: ../src/Silver/restaurants_clean.py
+            parameters: ['--CATALOG', '${var.catalog}']
+          depends_on:
+            - task_key: ingestion
+
+        # ---- 3. Silver: order events (reference tables chahiye) ----
+        - task_key: orders_event_clean
+          environment_key: default
+          spark_python_task:
+            python_file: ../src/Silver/orders_event_clean.py
+            parameters: ['--CATALOG', '${var.catalog}']
+          depends_on:
+            - task_key: customers_clean
+            - task_key: riders_clean
+            - task_key: zone_clean
+            - task_key: restaurants_clean
+
+        # ---- 4. Gold: enriched orders ----
+        - task_key: orders_enriched
+          environment_key: default
+          spark_python_task:
+            python_file: ../src/Gold/orders_enriched.py
+            parameters: ['--CATALOG', '${var.catalog}']
+          depends_on:
+            - task_key: orders_event_clean
