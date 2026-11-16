@@ -1,0 +1,16 @@
+{
+  "probe_id": "r13_status_probe",
+  "question": "What's the status of order ORD-40123?",
+  "trace_id": "r13_status_probe-9f25e3fa6cf6",
+  "tool_calls": [
+    {
+      "name": "hop.genai.lookup_order",
+      "args": {
+        "order_id": "ORD-40123"
+      },
+      "result_excerpt": "[{\"order_id\": \"ORD-40123\", \"status\": \"delivered\", \"delivery_class\": \"standard\", \"ticket_id\": null, \"issue_code\": null, \"order_value\": 2199.5, \"promised_minutes\": 35.0, \"minutes_past_promise\": 2.966667000000001, \"customer_tier\": \"free\"}]"
+    }
+  ],
+  "final_answer": "Order ORD-40123 has a status of delivered.",
+  "cited_chunk_ids": []
+}

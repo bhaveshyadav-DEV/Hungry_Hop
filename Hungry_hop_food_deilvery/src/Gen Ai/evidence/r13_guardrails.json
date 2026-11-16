@@ -1,0 +1,36 @@
+{
+  "results": [
+    {
+      "id": "GP01",
+      "decision": "block"
+    },
+    {
+      "id": "GP02",
+      "decision": "block"
+    },
+    {
+      "id": "GP03",
+      "decision": "block"
+    },
+    {
+      "id": "GP04",
+      "decision": "block"
+    },
+    {
+      "id": "GP05",
+      "decision": "block"
+    },
+    {
+      "id": "GP06",
+      "decision": "allow"
+    },
+    {
+      "id": "GP07",
+      "decision": "allow"
+    },
+    {
+      "id": "GP08",
+      "decision": "allow"
+    }
+  ]
+}
