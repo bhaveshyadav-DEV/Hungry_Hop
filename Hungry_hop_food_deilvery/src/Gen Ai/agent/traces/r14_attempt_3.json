@@ -1,0 +1,124 @@
+{
+  "question": "For ORD-50003: was the order late under the right SOP, and what compensation does the customer get?",
+  "attempt": 3,
+  "trace_id": "r14-attempt3-76e1d2eabb43",
+  "route": [
+    "data",
+    "policy",
+    "adjudication",
+    "verifier"
+  ],
+  "specialists": {
+    "data": {
+      "order_id": "ORD-50003",
+      "status": "delivered",
+      "delivery_class": "standard",
+      "ticket_id": "TKT-50003",
+      "issue_code": "RIDER_DELAY",
+      "order_value": 1240.0,
+      "promised_minutes": 35.0,
+      "minutes_past_promise": 22.0,
+      "customer_tier": "hop_pro"
+    },
+    "policy": {
+      "queries": [
+        "how many minutes past the promise does a standard order count as late",
+        "standard order counts as late coupon amount membership tier multipliers"
+      ],
+      "cited_chunk_ids": [
+        "1c62027ac30c8d61b3bf014cf50864c6",
+        "e3f0b7a8dc5903bdaf6016c05e7a32e6",
+        "3148c00018f2a43f20a1b907eabb3d1f",
+        "bc39239ed19254701e7e938650e04433",
+        "1407bfa7595ffe9a81fc6041be675afa",
+        "da3c8fe48129b768029f20b921f98e66",
+        "d21a4d958f9293e6ed40ce11b366f771",
+        "fc09dc44c58574fa081e6c055e702330"
+      ],
+      "chunks": [
+        {
+          "chunk_id": "1c62027ac30c8d61b3bf014cf50864c6",
+          "doc_name": "04_Late_Delivery_Compensation_Standard.md",
+          "heading": "When an order counts as late",
+          "text": "# Late Delivery Compensation\nApplies to: Standard orders (30 to 45 minute promise) only\n\n## When an order counts as late\nA Standard order is **late** when it is delivered **more than 20 minutes** past"
+        },
+        {
+          "chunk_id": "e3f0b7a8dc5903bdaf6016c05e7a32e6",
+          "doc_name": "03_Late_Delivery_Compensation_Instant.md",
+          "heading": "When an order counts as late",
+          "text": "# Late Delivery Compensation\nApplies to: Instant orders (10 minute promise) only\n\n## When an order counts as late\nAn Instant order is **late** when it is delivered **more than 5 minutes** past its pro"
+        },
+        {
+          "chunk_id": "3148c00018f2a43f20a1b907eabb3d1f",
+          "doc_name": "04_Late_Delivery_Compensation_Standard.md",
+          "heading": "Overview",
+          "text": "# Late Delivery Compensation\nApplies to: Standard orders (30 to 45 minute promise) only\n\n## Overview\nThis SOP says when a Standard order counts as late and which coupon the customer gets. A twin SOP w"
+        },
+        {
+          "chunk_id": "bc39239ed19254701e7e938650e04433",
+          "doc_name": "04_Late_Delivery_Compensation_Standard.md",
+          "heading": "When no coupon is given",
+          "text": "# Late Delivery Compensation\nApplies to: Standard orders (30 to 45 minute promise) only\n\n## When no coupon is given\nThere is no coupon when the customer is at fault, and no coupon when the Standard or"
+        },
+        {
+          "chunk_id": "1407bfa7595ffe9a81fc6041be675afa",
+          "doc_name": "04_Late_Delivery_Compensation_Standard.md",
+          "heading": "Coupon amount",
+          "text": "# Late Delivery Compensation\nApplies to: Standard orders (30 to 45 minute promise) only\n\n## Coupon amount\nA late Standard order earns a base coupon of **Rs 60**. The base coupon is then scaled by the "
+        },
+        {
+          "chunk_id": "da3c8fe48129b768029f20b921f98e66",
+          "doc_name": "05_Membership_Tiers_and_Coupon_Scaling.md",
+          "heading": "Coupon multipliers",
+          "text": "# Membership Tiers and Coupon Scaling\nApplies to: all HungryHop customers\n\n## Coupon multipliers\nA late-delivery coupon is the base coupon times the tier multiplier: `free` **x1**, `hop_plus` **x1.5**"
+        },
+        {
+          "chunk_id": "d21a4d958f9293e6ed40ce11b366f771",
+          "doc_name": "05_Membership_Tiers_and_Coupon_Scaling.md",
+          "heading": "Customer fault",
+          "text": "# Membership Tiers and Coupon Scaling\nApplies to: all HungryHop customers\n\n## Customer fault\nWhen the customer is at fault (issue code `CUSTOMER_UNAVAILABLE`), there is no coupon and no refund, whatev"
+        },
+        {
+          "chunk_id": "fc09dc44c58574fa081e6c055e702330",
+          "doc_name": "05_Membership_Tiers_and_Coupon_Scaling.md",
+          "heading": "When the multiplier applies",
+          "text": "# Membership Tiers and Coupon Scaling\nApplies to: all HungryHop customers\n\n## When the multiplier applies\nThe multiplier applies only when the restaurant or the rider is at fault. When the fault is un"
+        }
+      ]
+    },
+    "adjudication": {
+      "model": "system.ai.gpt-oss-120b",
+      "rules_in_prompt": true,
+      "decision": {
+        "reason_code": "LATE_DELIVERY",
+        "delivered": true,
+        "reason": "Order delivered 22 minutes past the promised time due to rider delay.",
+        "amount": 120.0,
+        "is_late": true,
+        "compensation_type": "COUPON",
+        "fault": "rider"
+      }
+    }
+  },
+  "verifier": {
+    "agrees": true,
+    "decision": {
+      "fault": "rider",
+      "delivered": true,
+      "is_late": true,
+      "compensation_type": "COUPON",
+      "amount": 120.0,
+      "reason_code": "LATE_DELIVERY"
+    },
+    "differences": []
+  },
+  "verdict": {
+    "fault": "rider",
+    "delivered": true,
+    "is_late": true,
+    "compensation_type": "COUPON",
+    "amount": 120.0,
+    "reason_code": "LATE_DELIVERY"
+  },
+  "final_answer": "Yes \u2014 ORD-50003 was late under the Standard SOP: it was delivered 22.0 minutes past its 35-minute promise, more than the 20-minute threshold. The rider was at fault (RIDER_DELAY), so the hop_pro tier applies: the customer gets a COUPON of Rs 120 (LATE_DELIVERY)."
+}

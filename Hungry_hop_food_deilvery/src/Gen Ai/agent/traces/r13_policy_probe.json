@@ -1,0 +1,18 @@
+{
+  "probe_id": "r13_policy_probe",
+  "question": "How late does an Instant order have to be before the customer gets a coupon?",
+  "trace_id": "r13_policy_probe-3618e0d97a65",
+  "tool_calls": [
+    {
+      "name": "hop.genai.search_sop",
+      "args": {
+        "query": "how many minutes past the promise does an instant order count as late and get a coupon"
+      },
+      "result_excerpt": "[{\"chunk_id\": \"e3f0b7a8dc5903bdaf6016c05e7a32e6\", \"doc_name\": \"03_Late_Delivery_Compensation_Instant.md\", \"heading\": \"When an order counts as late\", \"text\": \"# Late Delivery Compensation\\nApplies to: Instant orders (10 minute promise) only\\n\\n## When an order counts as late\\nAn Instant order is **late** when it is delivered **more than 5 minutes** past its promise (minutes past promise greater tha"
+    }
+  ],
+  "final_answer": "An Instant order must be delivered more than 5 minutes past its promised time to be considered late and qualify for a coupon. Exactly 5 minutes or less is considered on time.",
+  "cited_chunk_ids": [
+    "e3f0b7a8dc5903bdaf6016c05e7a32e6"
+  ]
+}
