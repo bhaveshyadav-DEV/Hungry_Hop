@@ -6,8 +6,12 @@ from pyspark.sql.window import Window
 # 1. CONFIGURATION
 # ============================================================
 
-CATALOG = dbutils.widgets.text("CATALOG", "hop")
-CATALOG = dbutils.widgets.get("CATALOG")
+import sys
+if "--CATALOG" in sys.argv:                                     # job (spark_python_task): parameters -> sys.argv
+    CATALOG = sys.argv[sys.argv.index("--CATALOG") + 1]
+else:                                                            # interactive: widget se
+    dbutils.widgets.text("CATALOG", "hop")
+    CATALOG = dbutils.widgets.get("CATALOG")
 
 BRONZE_TABLE = f"{CATALOG}.bronze.order_events"
 EVENTS_DEDUP_TABLE = f"{CATALOG}.silver.order_events_dedup"
