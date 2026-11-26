@@ -1,0 +1,9 @@
+command:
+  - python
+  - app.py
+
+env:
+  - name: DATABRICKS_WAREHOUSE_ID
+    value: "473dc838db8a8c1d"
+  - name: MCP_SERVER_URL
+    value: ""
